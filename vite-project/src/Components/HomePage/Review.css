@@ -1,0 +1,184 @@
+.review-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.review-header {
+  background-color: #e67e22;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 20px;
+  padding: 0px 0px 7px 0px;
+  width: 100%;
+}
+
+.review-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+/* Sidebar */
+.review-sidebar {
+  width: 20%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.review-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.review-step-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 30px;
+  font-weight: bold;
+}
+
+.completed {
+  background-color: green;
+  color: white;
+}
+
+.active {
+  background-color: #d97706;
+  color: white;
+}
+
+.review-line {
+  width: 2px;
+  height: 310px;
+  margin-left: 14px;
+  background-color: gray;
+}
+
+/* Review Details */
+.review-details {
+  width: 60%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+/* Card Styles */
+.review-card {
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.review-card h3 {
+  color: rgb(2, 51, 2);
+  margin-bottom: 10px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 23px;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.review-info {
+  border: 1px solid rgb(163, 163, 163);
+  margin-top: 20px;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.review-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.review-info p strong {
+  color: rgb(196, 193, 193);
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.review-info span {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  line-height: 50px;
+  margin-right: 100px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.review-description {
+  padding: 10px;
+  margin-right: 0px !important;
+  font-weight: 200 !important;
+  line-height: 20px !important;
+  width: 100%;
+  overflow-wrap: break-word; /* Break words properly */
+  word-break: break-word;
+}
+/* Image Previews */
+.review-image-preview {
+  display: flex;
+  gap: 10px;
+}
+
+.review-thumbnail {
+  width: 50px;
+  height: 50px;
+  background-color: lightgray;
+  border-radius: 5px;
+}
+
+/* Buttons */
+.review-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.review-back,
+.review-create {
+  padding: 10px 20px;
+  border: none;
+  width: 210px;
+  height: 60px;
+  border-radius: 10px;
+
+  font-size: 16px;
+  cursor: pointer;
+  background-color: white;
+  border: 2px solid #d97706;
+  color: #d97706;
+}
+
+.review-back:hover {
+  background-color: #d97706;
+  color: white;
+}
+
+.review-create:hover {
+  background-color: #d97706;
+  color: white;
+}
+
+.review-thumbnail {
+  width: 70px;
+  height: 70px;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.review-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

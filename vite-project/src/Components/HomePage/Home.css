@@ -1,0 +1,56 @@
+/* Main Home Container */
+.home-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Sidebar Styling */
+.sidebar-container {
+  width: 250px;
+  color: white;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+/* Main Content Section */
+.main-content {
+  flex: 1;
+  margin-left: 250px; /* Sidebar Width */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden; /* Disable horizontal scrolling */
+}
+
+/* Content Area */
+.content-area {
+  flex: 1;
+  padding: 30px;
+  background-color: #fff;
+  overflow-y: auto;
+}
+
+.content-area::-webkit-scrollbar {
+  display: none;
+}
+
+.content-area h1 {
+  font-size: 35px;
+  font-weight: 500;
+  color: orange;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar-container {
+    width: 70px;
+  }
+
+  .main-content {
+    margin-left: 70px;
+  }
+}

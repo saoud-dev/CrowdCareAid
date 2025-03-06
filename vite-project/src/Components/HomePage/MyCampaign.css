@@ -1,0 +1,131 @@
+/* Container Styling */
+.myCampaign-container {
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Search Bar */
+.myCampaign-search-bar {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 10px;
+  border-radius: 25px;
+  margin-bottom: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
+}
+
+.myCampaign-search-bar input {
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+  flex: 1;
+  padding: 5px;
+}
+
+.myCampaign-search-icon {
+  color: gray;
+  margin-right: 10px;
+}
+
+/* Tabs */
+.myCampaign-tabs {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  border: 1px solid #2f4f2f;
+  padding: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  background: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #2f4f2f;
+}
+
+.tab.active {
+  background: #2f4f2f;
+  color: white;
+}
+
+/* Donation Card */
+.myCampaign-donation-card {
+  display: flex;
+  background: white;
+  margin-top: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  align-items: center;
+}
+
+.myCampaign-donation-image {
+  width: 180px;
+  height: 160px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.myCampaign-donation-content {
+  flex: 1;
+  margin-bottom: 20px;
+  padding: 5px 10px;
+}
+
+h3 {
+  margin: 10px 0;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+/* Progress Bar Container */
+.myCampaign-progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 8px;
+}
+
+/* Filled Progress */
+.myCampaign-progress {
+  height: 100%;
+  background: #2e7d32; /* Green Color */
+  transition: width 0.4s ease-in-out;
+}
+
+/* Percentage Text (Outside the Bar) */
+.myCampaign-progress-text {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Details */
+.myCampaign-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: gray;
+}
+
+.myCampaign-details.bold {
+  font-weight: bold;
+  margin-top: 10px;
+  color: black;
+}

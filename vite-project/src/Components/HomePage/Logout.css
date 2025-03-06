@@ -1,0 +1,86 @@
+/* Modal Backdrop */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Box */
+.modal-container {
+  background: white;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  width: 450px;
+  margin-left: 30px;
+}
+
+/* Modal Heading */
+.modal-container h2 {
+  background: #0f4d24;
+  color: white;
+  margin-top: 0 !important;
+  padding: 18px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 22px;
+}
+
+/* User Name */
+.user-name {
+  font-weight: bold;
+  font-size: 18px;
+  color: rgb(43, 42, 42);
+}
+
+.user-para {
+  color: rgb(49, 49, 49);
+}
+
+.model-name-para {
+  margin: 50px 10px;
+}
+
+/* Buttons */
+.modal-buttons {
+  margin-top: 20px;
+  display: flex;
+}
+
+.cancel-btn,
+.confirm-btn {
+  flex: 1;
+  border-radius: 0 !important;
+  border: none;
+  font-size: 18px !important;
+  cursor: pointer;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* No (Orange) */
+.cancel-btn {
+  background: #f39c12;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #e67e22;
+}
+
+/* Yes (Green) */
+.confirm-btn {
+  background: #0f4d24;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background: #0a3d1a;
+}

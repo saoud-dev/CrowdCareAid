@@ -1,0 +1,98 @@
+/* Sidebar Container */
+.sidebar-container {
+  width: 250px;
+  height: 100vh;
+  background-color: rgb(40, 95, 40);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Logo Styling */
+.sidebar-logo img {
+  height: 40px;
+  margin-bottom: 20px;
+  background-color: white;
+  padding: 10px 10px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+/* Menu Items */
+.menu {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.home-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border-radius: 5px;
+  color: white;
+  margin-top: 10px;
+}
+
+.home-menu .icon {
+  font-size: 25px;
+}
+
+/* Hover & Active Effect */
+.home-menu:hover {
+  background-color: #29293d;
+  color: white;
+}
+
+.home-menu.active {
+  background-color: white !important; /* Active Background */
+  color: green;
+}
+
+/* ✅ Dropdown Menu */
+.dropdown-menu {
+  padding: 5px;
+  border-radius: 5px;
+  margin-left: 40px;
+  width: 150px;
+}
+
+.dropdown-item {
+  padding: 10px 0px;
+  cursor: pointer;
+  padding-left: 10px;
+  color: #c7c4c4;
+}
+
+.dropdown-item:hover {
+  color: white;
+}
+
+/* Responsive for Small Screens */
+@media (max-width: 768px) {
+  .sidebar-container {
+    width: 80px;
+  }
+
+  .home-menu span {
+    display: none; /* Hide Text on Small Screens */
+  }
+
+  .home-menu {
+    justify-content: center;
+  }
+
+  .dropdown-menu {
+    left: 80px;
+  }
+}

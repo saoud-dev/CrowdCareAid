@@ -1,0 +1,145 @@
+/* Background Styling */
+.signup-container {
+  height: 100vh;
+  background-image: url("../../assets/poverty web 1.png"); /* Replace with actual image URL */
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+}
+
+/* Overlay Effect */
+.signup-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(58, 95, 76, 0.4);
+  z-index: 1; /* Ensure it stays above the background image */
+}
+/* Form Box */
+.form-wrapper {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  height: 540px;
+  text-align: center;
+  position: absolute;
+  top: 25px;
+  left: 40px;
+}
+/* Logo Styling */
+.logo img {
+  height: 80px;
+}
+
+h3 {
+  font-size: 28px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Flex container for first and second name */
+.flex {
+  display: flex;
+  gap: 10px;
+}
+
+/* Input Fields */
+input {
+  width: 94%;
+  padding: 12px;
+  border: none;
+  margin-top: 5px;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Soft shadow */
+}
+
+/* Signup Button */
+.input-btn {
+  background-color: green;
+  color: white;
+  font-size: 18px;
+  border: none;
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.8s ease;
+}
+
+.input-btn:hover {
+  background-color: darkgreen;
+}
+
+/* OR Section */
+.input-or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 15px;
+  font-weight: bold;
+  color: #666;
+}
+
+/* Line on both sides */
+.input-or::before,
+.input-or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #ccc;
+  margin: 0 15px;
+}
+
+/* Social Login Options */
+.option {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Social Media Icons */
+.option img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Sign-in Option */
+.signin-option {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Sign-in Link */
+.signin-option span {
+  color: red;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}

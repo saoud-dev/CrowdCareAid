@@ -1,0 +1,119 @@
+.search-container {
+  max-width: 650px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Search Bar */
+.search-search-bar {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.search-search-bar input {
+  width: 100%;
+  padding: 13px 35px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  font-size: 16px;
+}
+
+.search-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: gray;
+}
+
+.search-donation-list {
+  margin-top: 40px;
+  margin-left: 40px;
+}
+
+/* Donation Card */
+.search-donation-card {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+  margin-bottom: 25px;
+}
+
+.search-donation-image {
+  width: 150px;
+  height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.search-donation-content {
+  flex: 1;
+  padding: 9px;
+  margin-left: 5px;
+}
+
+.search-donation-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.search-progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #ddd; /* Light gray */
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.search-progress {
+  height: 100%;
+  background-color: #4caf50; /* Green color */
+  text-align: center;
+  line-height: 10px; /* Align text vertically */
+  font-size: 12px;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: width 0.5s ease-in-out;
+}
+
+.search-donation-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: gray;
+  margin-top: 5px;
+}
+
+.search-bold {
+  font-weight: bold;
+}
+
+.search-right-align {
+  text-align: right;
+}
+
+.search-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.search-error img {
+  width: 300px; /* Adjust size as needed */
+  height: auto;
+  opacity: 0.8;
+}
+
+.search-error p {
+  font-size: 18px;
+  color: #555;
+  margin-top: 10px;
+  font-weight: 500;
+}

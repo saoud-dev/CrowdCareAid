@@ -1,0 +1,56 @@
+/* Main Container */
+.category-container {
+  padding: 50px 20px;
+  width: 80%;
+  margin-left: 50px;
+}
+
+/* Heading */
+.category-name {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* Category Flexbox */
+.category-flex {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Category Card */
+.category-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 180px;
+  height: 80px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-card img {
+  width: 80px;
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.category-card p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Hover Effect */
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}

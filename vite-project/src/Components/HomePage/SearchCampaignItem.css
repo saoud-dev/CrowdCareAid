@@ -1,0 +1,174 @@
+.searchCampaign-container {
+  max-width: 850px;
+  margin: auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative; /* Make it the reference for absolute positioning */
+}
+
+.campaign-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.searchCampaign-details {
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.searchCampaign-description {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+  word-wrap: break-word; /* Wrap long words */
+}
+
+.searchCampaign-amounts {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  font-size: 16px;
+}
+.searchCampaign-progress-bar {
+  width: 100%;
+  height: 12px;
+  background-color: #e0e0e0; /* Light gray background */
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  margin: 10px 0;
+}
+
+.searchCampaign-progress {
+  height: 100%;
+  background: linear-gradient(to right, #4caf50, #2e7d32);
+  transition: width 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.progress-text {
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  right: 5px;
+}
+
+.searchCampaign-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #333;
+}
+
+.donor-heading {
+  margin-top: 20px;
+  font-size: 28px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.donor-list {
+  margin-top: 10px;
+}
+
+.donor-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.donor-name {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+}
+
+.donor-name span {
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+.donor-name p {
+  margin-top: 4px;
+  margin-top: 0;
+}
+
+.donor-email {
+  font-size: 12px;
+  color: #777;
+}
+
+.donor-avatar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.donor-avatar span {
+  color: black;
+}
+
+.donor-date,
+.donor-amount {
+  display: flex;
+  justify-content: space-between;
+}
+
+.donor-light {
+  color: #9e9c9c;
+}
+
+.searchCampaign-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.back-btn,
+.donate-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.back-btn {
+  background: #ddd;
+}
+
+.donate-btn {
+  background: green;
+  color: white;
+  margin-left: 10px;
+}
+
+.searchCampaign-report {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  color: #555454;
+  background: rgba(255, 255, 255, 0.8); /* Optional: Add a light background */
+  border-radius: 25%; /* Optional: Circular icon */
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10; /* Ensure it stays above the image */
+}
+
+.campaign-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
