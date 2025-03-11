@@ -1,45 +1,55 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import "./AmountDetails.css";
 import AddIcon from "@mui/icons-material/Add";
 
 const AmountDetails = ({ setActiveComponent, formData, setFormData }) => {
   const [previewUrls, setPreviewUrls] = useState([]);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      amount: formData.amount || "",
+      startDate: formData.duration[0] || "",
+      endDate: formData.duration[1] || "",
+      description: formData.description || "",
+      images: formData.images || [],
+    },
+  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const watchStartDate = watch("startDate");
+  const watchEndDate = watch("endDate");
 
-    if (name === "startDate" || name === "endDate") {
-      setFormData({
-        ...formData,
-        duration:
-          name === "startDate"
-            ? [value, formData.duration[1] || ""]
-            : [formData.duration[0] || "", value],
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
+  const onSubmit = (data) => {
+    if (new Date(data.startDate) > new Date(data.endDate)) {
+      alert("Start date cannot be after end date.");
+      return;
     }
+
+    setFormData({
+      ...formData,
+      amount: data.amount,
+      duration: [data.startDate, data.endDate],
+      description: data.description,
+      images: data.images,
+    });
+
+    setActiveComponent("Review");
   };
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-
-    if (formData.images.length + files.length > 10) {
-      alert("You can only upload up to 10 images.");
+    if (formData.images.length + files.length > 4) {
+      alert("You can only upload up to 4 images.");
       return;
     }
 
-    // Create image URLs for preview
     const newImageUrls = files.map((file) => URL.createObjectURL(file));
-
-    setFormData({
-      ...formData,
-      images: [...formData.images, ...files], // Storing files in formData
-    });
-
+    setValue("images", [...formData.images, ...files]);
     setPreviewUrls((prev) => [...prev, ...newImageUrls]);
   };
 
@@ -50,7 +60,6 @@ const AmountDetails = ({ setActiveComponent, formData, setFormData }) => {
       </div>
 
       <div className="amount-content">
-        {/* Sidebar Steps */}
         <div className="amount-sidebar">
           {["Fundraiser Details", "Amount Details", "Review"].map(
             (step, index) => (
@@ -75,39 +84,47 @@ const AmountDetails = ({ setActiveComponent, formData, setFormData }) => {
           )}
         </div>
 
-        {/* Form Section */}
-        <div className="amount-form-container">
+        <form
+          className="amount-form-container"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="amount-input-group">
             <input
-              type="text"
-              name="amount"
+              type="number"
               placeholder="Amount"
-              value={formData.amount}
-              onChange={handleChange}
+              {...register("amount", {
+                required: "Please enter a valid amount.",
+                min: { value: 1, message: "Amount must be greater than 0." },
+              })}
+            />
+            {errors.amount && <p className="error">{errors.amount.message}</p>}
+
+            <input
+              type="date"
+              {...register("startDate", {
+                required: "Start date is required.",
+              })}
             />
             <input
               type="date"
-              name="startDate"
-              value={formData.duration[0]}
-              onChange={handleChange}
+              {...register("endDate", { required: "End date is required." })}
             />
-            <input
-              type="date"
-              name="endDate"
-              value={formData.duration[1]}
-              onChange={handleChange}
-            />
+            {watchStartDate &&
+              watchEndDate &&
+              watchStartDate > watchEndDate && (
+                <p className="error">Start date cannot be after end date.</p>
+              )}
           </div>
 
-          {/* Image Upload */}
           <div className="amount-image-upload">
-            <h2>Attach Images {previewUrls.length}/10</h2>
+            <h2>Attach Images {previewUrls.length}/4</h2>
             <div className="amount-image-border">
               <div className="amount-add-image">
-                {previewUrls.length < 10 && (
+                {previewUrls.length < 4 && (
                   <>
                     <button
                       className="amount-upload-btn"
+                      type="button"
                       onClick={() =>
                         document.getElementById("fileInput").click()
                       }
@@ -136,36 +153,39 @@ const AmountDetails = ({ setActiveComponent, formData, setFormData }) => {
             </div>
           </div>
 
-          {/* Description Section */}
           <div className="amount-description">
             <label>Description</label>
             <textarea
-              name="description"
               placeholder="Write here"
-              value={formData.description}
-              onChange={handleChange}
+              {...register("description", {
+                required: "Description is required.",
+                maxLength: {
+                  value: 500,
+                  message: "Description cannot exceed 500 characters.",
+                },
+              })}
             />
+            {errors.description && (
+              <p className="error">{errors.description.message}</p>
+            )}
             <div className="amount-char-count">
-              {formData.description.length}/500
+              {watch("description")?.length || 0}/500
             </div>
           </div>
 
-          {/* Navigation Buttons */}
           <div className="amount-buttons">
             <button
+              type="button"
               className="amount-back"
-              onClick={() => setActiveComponent("FundraiserDetails")}
+              onClick={() => setActiveComponent("Create Campaign")}
             >
               Back
             </button>
-            <button
-              className="amount-continue"
-              onClick={() => setActiveComponent("Review")}
-            >
+            <button type="submit" className="amount-continue">
               Continue
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

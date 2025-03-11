@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import { useGetAuthUserCampaignQuery } from "../Redux/apiSlice";
 import MyCampaignSelect from "./MyCampaignSelect";
 
-const MyCampaign = () => {
+const MyCampaign = ({ setActiveComponent, setFormData }) => {
   const [images, setImages] = useState({});
   const [activeTab, setActiveTab] = useState("completed");
   const [selectedCampaign, setSelectedCampaign] = useState(null);
@@ -43,6 +43,8 @@ const MyCampaign = () => {
         donation={selectedCampaign}
         onBack={() => setSelectedCampaign(null)}
         images={images}
+        setActiveComponent={setActiveComponent}
+        setFormData={setFormData}
       />
     );
   }

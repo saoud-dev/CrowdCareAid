@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
 import "./Login.css";
 import logo from "../../assets/logo.png";
 import google from "../../assets/google.png";
@@ -10,34 +11,25 @@ function LoginInput() {
   const navigate = useNavigate();
   const [login, { isLoading }] = useLoginMutation();
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     try {
       const response = await login({
-        email: formData.email,
-        password: formData.password,
+        email: data.email,
+        password: data.password,
         loginType: "email",
       }).unwrap();
-
       localStorage.setItem("accessToken", response.data.access_token);
+      localStorage.setItem("loggedin", true);
       localStorage.setItem("RefreshToken", response.data.refresh_token);
 
-      localStorage.setItem("userEmail", formData.email);
       console.log("Saved Token:", localStorage.getItem("accessToken"));
       console.log(response);
-      setFormData({
-        email: "",
-        password: "",
-      });
 
       navigate("/home");
     } catch (err) {
@@ -53,25 +45,38 @@ function LoginInput() {
           <img src={logo} alt="Logo" />
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <h3>Welcome Back</h3>
 
           <input
             type="email"
-            name="email"
             placeholder="Enter Email Address"
-            value={formData.email}
-            onChange={handleChange}
-            required
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Enter a valid email",
+              },
+            })}
           />
+          {errors.email && (
+            <p className="login-error">{errors.email.message}</p>
+          )}
+
           <input
             type="password"
-            name="password"
             placeholder="Enter Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters long",
+              },
+            })}
           />
+          {errors.password && (
+            <p className="login-error">{errors.password.message}</p>
+          )}
 
           <div className="forget">
             <span onClick={() => navigate("/forget")}>Forget Password?</span>

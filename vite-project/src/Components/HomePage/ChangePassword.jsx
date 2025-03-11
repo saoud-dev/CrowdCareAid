@@ -1,26 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
 import "./ChangePassword.css";
 import { useChangePasswordMutation } from "../Redux/apiSlice";
 
 const ChangePassword = () => {
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
   const [changePassword, { isLoading, error }] = useChangePasswordMutation();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!oldPassword || !newPassword) {
-      alert("Both fields are required!");
-      return;
-    }
-
+  const onSubmit = async (data) => {
     try {
-      const res = await changePassword({ oldPassword, newPassword }).unwrap();
+      const res = await changePassword(data).unwrap();
       console.log(res);
       alert("Password Changed Successfully");
-      setOldPassword("");
-      setNewPassword("");
+      reset();
     } catch (err) {
       console.log(err);
     }
@@ -29,22 +27,34 @@ const ChangePassword = () => {
   return (
     <div className="change-password-container">
       <h2 className="change-password-heading">Change Password</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="input-group">
           <input
             type="password"
             placeholder="Old Password"
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
+            {...register("oldPassword", {
+              required: "Old password is required",
+            })}
           />
+          {errors.oldPassword && (
+            <p className="error-message">{errors.oldPassword.message}</p>
+          )}
         </div>
         <div className="input-group">
           <input
             type="password"
             placeholder="New Password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            {...register("newPassword", {
+              required: "New password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters",
+              },
+            })}
           />
+          {errors.newPassword && (
+            <p className="error-message">{errors.newPassword.message}</p>
+          )}
         </div>
         <button className="continue-button" type="submit" disabled={isLoading}>
           {isLoading ? "Updating..." : "Continue"}

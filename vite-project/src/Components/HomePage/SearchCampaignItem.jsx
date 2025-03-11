@@ -71,7 +71,8 @@ const SearchCampaignItem = ({ campaign, goBack, images }) => {
           <div>
             <p>Duration Dates</p>
             <strong>
-              {campaign.duration[0]} - {campaign.duration[1]}
+              {campaign.duration[0].split("T")[0]}--
+              {campaign.duration[1].split("T")[0]}
             </strong>
           </div>
         </div>
@@ -93,12 +94,14 @@ const SearchCampaignItem = ({ campaign, goBack, images }) => {
 
                 <div className="donor-date">
                   <p className="donor-light">Donation Date:</p>
-                  <p>{donor.createdAt}</p>
+                  <p className="donor-light1">
+                    {new Date(donor.createdAt).toLocaleDateString("en-GB")}
+                  </p>
                 </div>
 
                 <div className="donor-amount">
                   <p className="donor-light">Donation Amount:</p>
-                  <p>${donor.amount}</p>
+                  <p className="donor-light1">${donor.amount}</p>
                 </div>
               </div>
             ))}

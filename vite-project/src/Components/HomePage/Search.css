@@ -1,5 +1,5 @@
 .search-container {
-  max-width: 650px;
+  max-width: 700px;
   margin: auto;
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -44,7 +44,7 @@
 }
 
 .search-donation-image {
-  width: 150px;
+  width: 180px;
   height: 160px;
   border-radius: 10px;
   object-fit: cover;

@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
-function Header({ userData, setActiveComponent }) {
+function Header({ userData, setActiveComponent, activeComponent }) {
   const { data: notifications, isLoading } = useGetUserNotificationsQuery();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -24,7 +24,7 @@ function Header({ userData, setActiveComponent }) {
   return (
     <div className="header-container">
       <div className="header-logo">
-        <span>CrowdCare</span>
+        <span>{activeComponent}</span>
       </div>
 
       <div className="header-right">
@@ -45,6 +45,11 @@ function Header({ userData, setActiveComponent }) {
             sx={{
               outline: "none",
               boxShadow: "none",
+              width: "20px",
+              padding: "0px !important",
+              margin: "0px !important",
+              marginLeft: "10px !important",
+              minWidth: "unset",
               "&:focus": { outline: "none", boxShadow: "none" },
             }}
           >
@@ -63,7 +68,7 @@ function Header({ userData, setActiveComponent }) {
             <MenuItem
               onClick={() => {
                 handleClose();
-                setActiveComponent("profile");
+                setActiveComponent("Profile");
               }}
             >
               Profile
@@ -71,7 +76,7 @@ function Header({ userData, setActiveComponent }) {
             <MenuItem
               onClick={() => {
                 handleClose();
-                setActiveComponent("myCampaign");
+                setActiveComponent("MyCampaign");
               }}
             >
               My campaign

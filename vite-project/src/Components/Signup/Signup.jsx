@@ -1,38 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
 import "./Signup.css";
 import logo from "../../assets/logo.png";
 import google from "../../assets/google.png";
 import facebook from "../../assets/facebook.png";
-import { useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../Redux/apiSlice";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const navigate = useNavigate();
   const [signUp, { isLoading }] = useSignUpMutation();
+  const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     try {
-      const response = await signUp(formData).unwrap();
+      const response = await signUp(data).unwrap();
       console.log("Signup Successful:", response);
-      localStorage.setItem("userEmail", formData.email); // Save email to localStorage
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-      });
+      localStorage.setItem("userEmail", data.email);
 
       navigate("/otp");
     } catch (err) {
@@ -48,43 +37,57 @@ const Signup = () => {
           <img src={logo} alt="Logo" />
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <h3>Create your Account</h3>
 
           <div className="flex">
             <input
               type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
+              className={errors.firstName ? "error-input" : ""}
+              placeholder={
+                errors.firstName ? errors.firstName.message : "First Name"
+              }
+              {...register("firstName", { required: "First name is required" })}
             />
+
             <input
               type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
+              className={errors.lastName ? "error-input" : ""}
+              placeholder={
+                errors.lastName ? errors.lastName.message : "Last Name"
+              }
+              {...register("lastName", { required: "Last name is required" })}
             />
           </div>
+
           <input
             type="email"
-            name="email"
-            placeholder="Enter Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
+            className={errors.email ? "error-input" : ""}
+            placeholder={errors.email ? errors.email.message : "Enter Email"}
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Enter a valid email",
+              },
+            })}
           />
+
           <input
             type="password"
-            name="password"
-            placeholder="Enter Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
+            className={errors.password ? "error-input" : ""}
+            placeholder={
+              errors.password ? errors.password.message : "Enter Password"
+            }
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must be at least 6 characters long",
+              },
+            })}
           />
+
           <button type="submit" className="input-btn" disabled={isLoading}>
             {isLoading ? "Signing Up..." : "Signup"}
           </button>

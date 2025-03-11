@@ -38,7 +38,6 @@ const PaymentDetails = () => {
 
   if (isLoading) return <p>Loading payment details...</p>;
   if (error) return <p>Error fetching data!</p>;
-  console.log(data);
 
   return (
     <div className="payment-container">

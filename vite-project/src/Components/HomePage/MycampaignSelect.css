@@ -66,8 +66,14 @@
 }
 
 .myCampaignSelect-label {
-  font-size: 0.8rem;
   color: gray;
+  font-size: 17px;
+  font-weight: 600;
+}
+.myCampaignSelect-label-h3 {
+  font-size: 16px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin-top: 10px;
 }
 
 .myCampaignSelect-progress-bar {
@@ -87,7 +93,7 @@
 .myCampaignSelect-donation-info {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .myCampaignSelect-donation-buttons {

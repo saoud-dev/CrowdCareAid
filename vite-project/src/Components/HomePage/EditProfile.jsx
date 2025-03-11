@@ -35,11 +35,52 @@ function EditProfile({ setActiveComponent, userData }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setFormData({ ...formData, profileImage: imageUrl });
+    // if (file) {
+    //   const imageUrl = URL.createObjectURL(file);
+    // }
+
+    const formDataImage = new FormData();
+    formDataImage.append("image", file);
+
+    const token = localStorage.getItem("accessToken");
+
+    try {
+      // Upload Image
+      const uploadResponse = await fetch(
+        "https://dev.api.crowdcareaid.com/api/uploadImage",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formDataImage,
+        }
+      );
+
+      const uploadData = await uploadResponse.json();
+      console.log("Uploaded Image Response:", uploadData);
+
+      // Get Image
+      const imageResponse = await fetch(
+        `https://dev.api.crowdcareaid.com/api/getImage?key=${uploadData.data}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const imageJson = await imageResponse.json();
+      console.log("Fetched Image:", imageJson.data);
+
+      if (imageJson) {
+        setFormData((prev) => ({ ...prev, profileImage: imageJson.data }));
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
     }
   };
 
@@ -50,9 +91,10 @@ function EditProfile({ setActiveComponent, userData }) {
       }).unwrap();
       console.log(res);
       alert("Profile updated successfully!");
-      setActiveComponent("profile");
+      setActiveComponent("Profile");
     } catch (error) {
       console.error("Error updating profile:", error);
+      alert(error);
     }
   };
 
@@ -118,7 +160,7 @@ function EditProfile({ setActiveComponent, userData }) {
         <div className="detail-group full-width">
           <label>About Me</label>
           <textarea
-            name="aboutMe" // Change from "about" to "aboutMe"
+            name="aboutMe"
             value={formData.aboutMe}
             onChange={handleChange}
             placeholder="Tell something about yourself"
@@ -128,7 +170,7 @@ function EditProfile({ setActiveComponent, userData }) {
           <label>Location</label>
           <input
             type="text"
-            name="address" // Change from "location" to "address"
+            name="address"
             value={formData.address}
             onChange={handleChange}
             placeholder="Address"
@@ -137,9 +179,9 @@ function EditProfile({ setActiveComponent, userData }) {
         <div className="detail-group">
           <label>Gender</label>
           <select name="gender" value={formData.gender} onChange={handleChange}>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
         </div>
       </div>

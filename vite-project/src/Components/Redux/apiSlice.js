@@ -111,7 +111,7 @@ export const apiSlice = createApi({
     updateCampaign: builder.mutation({
       query: (id) => ({
         url: `/updateCampaign/${id}`,
-        method: "PUT",
+        method: "PATCH",
         body: updatedData,
       }),
     }),

@@ -11,7 +11,8 @@ const Logout = ({ onClose, userData }) => {
       const res = await logout();
       console.log(res);
       localStorage.removeItem("accessToken");
-
+      localStorage.removeItem("loggedin");
+      localStorage.removeItem("RefreshToken");
       navigate("/login");
     } catch (error) {
       console.error("Logout failed", error);

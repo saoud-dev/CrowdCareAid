@@ -4,8 +4,15 @@ import { FaArrowLeft } from "react-icons/fa";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useDeleteCampaignMutation } from "../Redux/apiSlice";
 
-const MyCampaignSelect = ({ donation, onBack, images }) => {
+const MyCampaignSelect = ({
+  donation,
+  onBack,
+  images,
+  setActiveComponent,
+  setFormData,
+}) => {
   const [deleteCampaign] = useDeleteCampaignMutation();
+  console.log(donation);
 
   const handleDelete = async () => {
     if (confirm("Are you sure you want to delete this campaign?")) {
@@ -51,11 +58,13 @@ const MyCampaignSelect = ({ donation, onBack, images }) => {
         <div className="myCampaignSelect-donation-fundraise">
           <div>
             <span className="myCampaignSelect-label">Total Fundraise</span>
-            <h3>${donation.raisedAmount}</h3>
+            <h3 className="myCampaignSelect-label-h3">
+              ${donation.raisedAmount}
+            </h3>
           </div>
           <div>
             <span className="myCampaignSelect-label">Target Amount</span>
-            <h3>${donation.amount}</h3>
+            <h3 className="myCampaignSelect-label-h3">${donation.amount}</h3>
           </div>
         </div>
 
@@ -73,11 +82,13 @@ const MyCampaignSelect = ({ donation, onBack, images }) => {
         <div className="myCampaignSelect-donation-info">
           <div>
             <span className="myCampaignSelect-label">Country</span>
-            <h3>{donation.location || "Not specified"}</h3>
+            <h3 className="myCampaignSelect-label-h3">
+              {donation.location || "Not specified"}
+            </h3>
           </div>
           <div>
             <span className="myCampaignSelect-label">Duration Date</span>
-            <h3>
+            <h3 className="myCampaignSelect-label-h3">
               {donation.duration[0]} - {donation.duration[1]}
             </h3>
           </div>
@@ -85,7 +96,24 @@ const MyCampaignSelect = ({ donation, onBack, images }) => {
 
         {/* Buttons */}
         <div className="myCampaignSelect-donation-buttons">
-          <button className="myCampaignSelect-edit-btn">Edit</button>
+          <button
+            className="myCampaignSelect-edit-btn"
+            onClick={() => {
+              setFormData({
+                title: donation.title,
+                category: donation.category._id || "",
+                location: donation.location || "",
+                amount: donation.amount || "",
+                duration: donation.duration || [],
+                description: donation.description || "",
+                images: donation.images || [],
+              });
+              setActiveComponent("Create Campaign");
+            }}
+          >
+            Edit
+          </button>
+
           <button className="myCampaignSelect-donate-btn">Donate</button>
         </div>
       </div>

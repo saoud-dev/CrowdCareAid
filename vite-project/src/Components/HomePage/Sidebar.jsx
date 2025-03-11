@@ -25,25 +25,25 @@ function Sidebar({ setActiveComponent, userData }) {
 
     switch (menu) {
       case "Create Campaign":
-        setActiveComponent("FundraiserDetails");
+        setActiveComponent("Create Campaign");
         break;
       case "PaymentDetails":
-        setActiveComponent("PaymentDetails");
+        setActiveComponent("Donation History");
         break;
       case "search":
-        setActiveComponent("search");
+        setActiveComponent("Search");
         break;
-      case "myCampaign":
-        setActiveComponent("myCampaign");
+      case "MyCampaign":
+        setActiveComponent("MyCampaign");
         break;
       case "profile":
-        setActiveComponent("profile");
+        setActiveComponent("Profile");
         break;
       case "changePassword":
-        setActiveComponent("changePassword");
+        setActiveComponent("ChangePassword");
         break;
       case "Home":
-        setActiveComponent("Home");
+        setActiveComponent("Crowd Care");
         break;
     }
   };
@@ -55,87 +55,87 @@ function Sidebar({ setActiveComponent, userData }) {
       </div>
 
       <div className="menu">
-        <div
+        <button
           className={`home-menu ${activeMenu === "Home" ? "active" : ""}`}
           onClick={() => handleMenuClick("Home")}
         >
           <HomeIcon className="icon" />
-          <span>Home</span>
-        </div>
+          Home
+        </button>
 
-        <div
+        <button
           className={`home-menu ${
             activeMenu === "Create Campaign" ? "active" : ""
           }`}
           onClick={() => handleMenuClick("Create Campaign")}
         >
           <AddToPhotosIcon className="icon" />
-          <span>Create Campaign</span>
-        </div>
+          Create Campaign
+        </button>
 
-        <div
+        <button
           className={`home-menu ${
             activeMenu === "PaymentDetails" ? "active" : ""
           }`}
           onClick={() => handleMenuClick("PaymentDetails")}
         >
           <HistoryIcon className="icon" />
-          <span>Donation History</span>
-        </div>
+          Donation History
+        </button>
 
-        <div
+        <button
           className={`home-menu ${activeMenu === "search" ? "active" : ""}`}
           onClick={() => handleMenuClick("search")}
         >
           <SearchSharpIcon className="icon" />
-          <span>Search</span>
-        </div>
+          Search
+        </button>
 
-        <div
+        <button
           className={`home-menu ${activeMenu === "myCampaign" ? "active" : ""}`}
-          onClick={() => handleMenuClick("myCampaign")}
+          onClick={() => handleMenuClick("MyCampaign")}
         >
           <VolunteerActivismIcon className="icon" />
-          <span>My Campaign</span>
-        </div>
+          My Campaign
+        </button>
 
-        <div
+        <button
           className={`home-menu ${activeMenu === "Setting" ? "active" : ""}`}
           onClick={() => handleMenuClick("Setting")}
         >
           <SettingsIcon className="icon" />
-          <span>Setting</span>
-        </div>
+          Setting
+        </button>
 
         {showDropdown && (
           <div className="dropdown-menu">
-            <div
+            <button
               className="dropdown-item"
               onClick={() => handleMenuClick("profile")}
             >
               My Profile
-            </div>
+            </button>
 
-            <div
+            <button
               className="dropdown-item"
               onClick={() => handleMenuClick("changePassword")}
             >
               Change Password
-            </div>
+            </button>
 
-            <div
+            <button
               className="dropdown-item"
               onClick={() => setShowLogoutModal(true)}
             >
               Logout
-            </div>
+            </button>
 
-            <div
+            <button
               className="dropdown-item"
               onClick={() => setShowDeleteModal(true)}
             >
-              Delete Acount
-            </div>
+              Delete Account
+            </button>
           </div>
         )}
       </div>

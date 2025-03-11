@@ -12,30 +12,84 @@ import Otp from "./Components/OTP/Otp";
 import ChangePassword from "./Components/ChangePassword/ChangePassword";
 import Home from "./Components/HomePage/Home";
 import ForgetOtp from "./Components/OTP/ForgetOtp";
-import FundraiserDetails from "./Components/HomePage/FundraiserDetails";
-import MyCampaign from "./Components/HomePage/MyCampaign";
+
+function ProtectedRoute({ children }) {
+  const isLoggedIn = localStorage.getItem("loggedin") === "true";
+  return isLoggedIn ? children : <Navigate to="/login" />;
+}
+
+function AuthRoute({ children }) {
+  const isLoggedIn = localStorage.getItem("loggedin") === "true";
+  return isLoggedIn ? <Navigate to="/home" /> : children;
+}
 
 function App() {
   return (
     <div className="app-container">
       <Router>
         <Routes>
-          <Route path="/" element={<Signup />} />
+          {/* Prevent logged-in users from accessing login/signup */}
+          <Route
+            path="/login"
+            element={
+              <AuthRoute>
+                <Login />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <AuthRoute>
+                <Signup />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/forget"
+            element={
+              <AuthRoute>
+                <Forget />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/otp"
+            element={
+              <AuthRoute>
+                <Otp />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/forgetOtp"
+            element={
+              <AuthRoute>
+                <ForgetOtp />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/changepassword"
+            element={
+              <AuthRoute>
+                <ChangePassword />
+              </AuthRoute>
+            }
+          />
 
-          {/* Other Routes */}
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forget" element={<Forget />} />
-          <Route path="/otp" element={<Otp />} />
-          <Route path="/forgetOtp" element={<ForgetOtp />} />
+          {/* Protected Route for Home */}
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
 
-          <Route path="/changepassword" element={<ChangePassword />} />
-          <Route path="/home" element={<Home />} />
-
-          <Route path="*" element={<Navigate to="/" />} />
-
-          <Route path="/fundraiserDetails" element={<FundraiserDetails />} />
-          <Route path="/mycampaign" element={<MyCampaign />} />
+          {/* Redirect unknown routes to login */}
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </Router>
     </div>

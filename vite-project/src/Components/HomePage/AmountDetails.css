@@ -222,3 +222,7 @@
 .amount-continue:hover {
   background-color: #d35400;
 }
+
+.error {
+  color: red;
+}

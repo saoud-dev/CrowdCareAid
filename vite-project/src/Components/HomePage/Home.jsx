@@ -17,10 +17,11 @@ import { useUserProfileQuery } from "../Redux/apiSlice";
 import ChangePassword from "./ChangePassword";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import MyCampaignSelect from "./MyCampaignSelect.jsx";
 
 function Home() {
   const { data } = useUserProfileQuery();
-  const [activeComponent, setActiveComponent] = useState("Home");
+  const [activeComponent, setActiveComponent] = useState("Crowd Care");
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -38,7 +39,7 @@ function Home() {
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [activeComponent]);
@@ -48,7 +49,11 @@ function Home() {
       <Sidebar setActiveComponent={setActiveComponent} userData={data?.data} />
 
       <div className="main-content">
-        <Header userData={data?.data} setActiveComponent={setActiveComponent} />
+        <Header
+          userData={data?.data}
+          setActiveComponent={setActiveComponent}
+          activeComponent={activeComponent}
+        />
 
         <div className="content-area">
           {loading ? (
@@ -63,17 +68,25 @@ function Home() {
             </Box>
           ) : (
             <>
-              {activeComponent === "Home" && (
+              {activeComponent === "Crowd Care" && (
                 <>
                   <Campaign setActiveComponent={setActiveComponent} />
                   <Category />
                   <Topfundraiser />
                 </>
               )}
-              {activeComponent === "PaymentDetails" && <PaymentDetails />}
-              {activeComponent === "search" && <Search />}
-              {activeComponent === "myCampaign" && <MyCampaign />}
-              {activeComponent === "profile" && (
+
+              {activeComponent === "Donation History" && <PaymentDetails />}
+              {activeComponent === "Search" && <Search />}
+              {activeComponent === "MyCampaign" && (
+                <MyCampaign
+                  setActiveComponent={setActiveComponent}
+                  setFormData={setFormData}
+                />
+              )}
+              {activeComponent === "MyCampaignSelect" && <MyCampaignSelect />}
+
+              {activeComponent === "Profile" && (
                 <Profile
                   setActiveComponent={setActiveComponent}
                   userData={data?.data}
@@ -85,7 +98,7 @@ function Home() {
                   userData={data?.data}
                 />
               )}
-              {activeComponent === "FundraiserDetails" && (
+              {activeComponent === "Create Campaign" && (
                 <FundraiserDetails
                   setActiveComponent={setActiveComponent}
                   formData={formData}
@@ -106,7 +119,7 @@ function Home() {
                   setActiveComponent={setActiveComponent}
                 />
               )}
-              {activeComponent === "changePassword" && <ChangePassword />}
+              {activeComponent === "ChangePassword" && <ChangePassword />}
             </>
           )}
         </div>

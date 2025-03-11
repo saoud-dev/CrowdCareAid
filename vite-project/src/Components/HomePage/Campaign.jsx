@@ -11,7 +11,7 @@ function Campaign({ setActiveComponent }) {
             <h2 className="campaign-heading">Start Your own Funding</h2>
             <button
               className="campaign-btn"
-              onClick={() => setActiveComponent("FundraiserDetails")}
+              onClick={() => setActiveComponent("Create Campaign")}
             >
               Start Campaign
             </button>

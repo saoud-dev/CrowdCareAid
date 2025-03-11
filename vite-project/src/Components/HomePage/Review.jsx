@@ -6,38 +6,28 @@ import {
 } from "../Redux/apiSlice";
 
 const Review = ({ setActiveComponent, formData, setFormData }) => {
-  const [createCampaign, { isLoading, isError, error }] =
-    useCreateCampaignMutation();
-
+  const [
+    createCampaign,
+    { isLoading: isCreating, isError: createError, error: createErr },
+  ] = useCreateCampaignMutation();
   const [uploadImage] = useUploadImageMutation();
 
   const handleSubmit = async () => {
     try {
       console.log("Uploading images...");
 
+      //  Upload Images First
       const uploadedImages = await Promise.all(
         formData.images.map(async (image, index) => {
-          if (!image) {
-            console.error(`Image at index ${index} is missing!`);
-            return null;
-          }
+          if (!image) return null;
 
           const imageData = new FormData();
           imageData.append("image", image);
 
           try {
             const response = await uploadImage(imageData).unwrap();
-            console.log("Uploaded Image" + response);
-
-            if (response.data.length === 0) {
-              console.log(
-                "Image upload response format is incorrect!",
-                response
-              );
-              return null;
-            }
-
-            return response.data[0];
+            console.log(response);
+            return response.data[0] || null; // Ensure image URL is valid
           } catch (uploadError) {
             console.error(
               `Image upload failed at index ${index}:`,
@@ -48,6 +38,7 @@ const Review = ({ setActiveComponent, formData, setFormData }) => {
         })
       );
 
+      // Prepare Data for API
       const formattedData = {
         ...formData,
         images: uploadedImages.filter((url) => url !== null),
@@ -56,9 +47,10 @@ const Review = ({ setActiveComponent, formData, setFormData }) => {
       console.log("Final Payload:", formattedData);
 
       const campaignResponse = await createCampaign(formattedData).unwrap();
-      console.log("Campaign Created Successfully:", campaignResponse);
-      setActiveComponent("myCampaign");
+      console.log("✅ New Campaign Created Successfully:", campaignResponse);
 
+      // Reset form and navigate
+      setActiveComponent("MyCampaign");
       setFormData({
         title: "",
         category: "",
@@ -69,10 +61,8 @@ const Review = ({ setActiveComponent, formData, setFormData }) => {
         images: [],
       });
     } catch (err) {
-      console.error("Failed to create campaign:", err);
-      if (err.data) {
-        console.error("Error Details:", err.data);
-      }
+      console.error("❌ Failed to submit campaign:", err);
+      if (err.data) console.error("Error Details:", err.data);
     }
   };
 
@@ -142,13 +132,34 @@ const Review = ({ setActiveComponent, formData, setFormData }) => {
                 <span>
                   {formData.duration[0]} ---- {formData.duration[1]}
                 </span>
+
+                {/* Image Preview */}
                 <div className="review-image-preview">
                   {formData.images.length > 0 ? (
-                    formData.images.map((image, index) => (
-                      <div key={index} className="review-thumbnail">
-                        <img src={URL.createObjectURL(image)} alt="Uploaded" />
-                      </div>
-                    ))
+                    formData.images.map((image, index) => {
+                      if (typeof image === "string") {
+                        return (
+                          <div key={index} className="review-thumbnail">
+                            <img src={image} alt="Uploaded" />
+                          </div>
+                        );
+                      } else if (
+                        image instanceof Blob ||
+                        image instanceof File
+                      ) {
+                        return (
+                          <div key={index} className="review-thumbnail">
+                            <img
+                              src={URL.createObjectURL(image)}
+                              alt="Uploaded"
+                            />
+                          </div>
+                        );
+                      } else {
+                        console.warn("Invalid image format:", image);
+                        return null;
+                      }
+                    })
                   ) : (
                     <p>No images uploaded</p>
                   )}
@@ -174,15 +185,15 @@ const Review = ({ setActiveComponent, formData, setFormData }) => {
             <button
               className="review-create"
               onClick={handleSubmit}
-              disabled={isLoading}
+              disabled={isCreating}
             >
-              {isLoading ? "Creating..." : "Create"}
+              {isCreating ? "Processing..." : "Create"}
             </button>
           </div>
 
-          {isError && (
+          {createError && (
             <p className="error-message">
-              Error: {error?.data?.message || "Something went wrong"}
+              Error: {createErr?.data?.message || "Something went wrong"}
             </p>
           )}
         </div>

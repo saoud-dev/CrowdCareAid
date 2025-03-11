@@ -1,14 +1,22 @@
 import "./FundraiserDetails.css";
 import { useGetCategoriesQuery } from "../Redux/apiSlice";
+import { useForm } from "react-hook-form";
 
 const FundraiserDetails = ({ setActiveComponent, formData, setFormData }) => {
-  const { data, error, isLoading } = useGetCategoriesQuery();
+  const { data } = useGetCategoriesQuery();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: formData,
+  });
+
+  // Form submit handler
+  const onSubmit = (data) => {
+    setFormData(data);
+    setActiveComponent("AmountDetails");
   };
 
   return (
@@ -45,47 +53,54 @@ const FundraiserDetails = ({ setActiveComponent, formData, setFormData }) => {
             </div>
           </div>
 
-          <div className="fund-form-group">
-            <input
-              type="text"
-              name="title"
-              placeholder="Enter Title"
-              value={formData.title}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="fund-form-group">
-            <label>Select Category</label>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-            >
-              <option value="">Select a Category</option>
-              {data?.data?.map((category) => (
-                <option key={category._id} value={category._id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="fund-form-group">
-            <input
-              type="text"
-              name="location"
-              placeholder="Enter Location"
-              value={formData.location}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button
-            className="fund-button"
-            onClick={() => setActiveComponent("AmountDetails", formData)}
-          >
-            Continue
-          </button>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="fund-form-group">
+              <input
+                type="text"
+                {...register("title", { required: "Title is required" })}
+                placeholder="Enter Title"
+              />
+              {errors.title && (
+                <p className="error-text">{errors.title.message}</p>
+              )}
+            </div>
+
+            <div className="fund-form-group">
+              <label>Select Category</label>
+              <select
+                {...register("category", {
+                  required: "Please select a category",
+                })}
+              >
+                <option value="">Select a Category</option>
+                {data?.data?.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+              {errors.category && (
+                <p className="error-text">{errors.category.message}</p>
+              )}
+            </div>
+
+            <div className="fund-form-group">
+              <input
+                type="text"
+                {...register("location", { required: "Location is required" })}
+                placeholder="Enter Location"
+              />
+              {errors.location && (
+                <p className="error-text">{errors.location.message}</p>
+              )}
+            </div>
+
+            <div className="fund-btn-flex">
+              <button className="fund-button" type="submit">
+                Continue
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
